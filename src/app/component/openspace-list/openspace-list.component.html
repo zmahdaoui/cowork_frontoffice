@@ -1,0 +1,42 @@
+<my-nav-bar></my-nav-bar>
+<div class="row">
+  <div class="col-4" >
+      <h2></h2>
+    <profile-information></profile-information>
+  </div>
+  <div class="col-8">
+    <h5 class='center' style="color: teal">Liste de nos sites</h5>
+    <div class="row">
+    
+    <div *ngFor='let openspace of openSpaces' class="col s6 m5">
+      <div class="card horizontal" (click)="selectOpenspace(openspace)" openspaceBorderCard>
+        <div class="card-stacked">
+          <div class="card-stacked">
+            <h6 style="margin-left: auto; margin-right: auto;">{{ openspace.location }}</h6>
+            <table class="bordered striped">
+                <tbody>
+                  <tr>
+                    <td>Adresse</td>
+                    <td><strong>{{ openspace.adresse }}</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Lundi au Jeudi</td>
+                    <td><strong>{{ openspace.schedule_mt+'h' }}</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Vendredi</td>
+                    <td><strong>{{ openspace.schedule_f+'h' }}</strong></td>
+                  </tr>
+                  <tr>
+                    <td>Week end</td>
+                    <td><strong>{{ openspace.schedule_we+'h' }}</strong></td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

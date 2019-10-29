@@ -1,0 +1,127 @@
+<my-nav-bar></my-nav-bar>
+<h2 class="header center">{{ openSpace.location }}</h2>
+<div class="row">
+  <div class="col s6">
+    <reservation></reservation>
+  </div>
+  <div class="col s6">
+    <div *ngIf="openSpace" class="row">
+      <div class="col s12 m8 offset-m2" style="margin-left: -10px;">
+      <div class="card horizontal hoverable">
+        <div class="card-stacked">
+          <div class="card-stacked">
+            <table class="bordered striped">
+              <tbody>
+                <tr>
+                  <td>Adresse</td>
+                  <td><strong>{{ openSpace.adresse }}</strong></td>
+                </tr>
+                <tr>
+                  <td>Lundi au Jeudi</td>
+                  <td><strong>{{ openSpace.schedule_mt+'h' }}</strong></td>
+                </tr>
+                <tr>
+                  <td>Vendredi</td>
+                  <td><strong>{{ openSpace.schedule_f+'h' }}</strong></td>
+                </tr>
+                <tr>
+                  <td>Week end</td>
+                  <td><strong>{{ openSpace.schedule_we+'h' }}</strong></td>
+                </tr>
+                <tr>
+                  <td>Wifi</td>
+                  <td>
+                    <div *ngIf="openSpace.wifi == 'true'; else secondCondition">
+                      <span><strong>{{ 'Haut débit' }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Boisson</td>
+                  <td>
+                    <div *ngIf="openSpace.drink == 'true'; else secondCondition">
+                        <span><strong>{{ 'A volonté' }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Plateu repas</td>
+                  <td>
+                    <div *ngIf="openSpace.plateau_repas == 'true'; else secondCondition">
+                        <span><strong>{{ 'Sur commande' }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Salles de réunion</td>
+                  <td>
+                    <div *ngIf="openSpace.conf_room != 0; else secondCondition">
+                        <span><strong>{{ openSpace.conf_room+' salles sur réservation' }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Salles d'appel'</td>
+                  <td>
+                    <div *ngIf="openSpace.call_room != 0; else secondCondition">
+                        <span><strong>{{ openSpace.call_room+' sur réservation' }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Salon cosy</td>
+                  <td>
+                    <div *ngIf="openSpace.cosy_room != 0; else secondCondition">
+                        <span><strong>{{ openSpace.cosy_room }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Imprimante</td>
+                  <td>
+                    <div *ngIf="openSpace.printers != 0; else secondCondition">
+                        <span><strong>{{ openSpace.printers }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ordinateurs portables</td>
+                  <td>
+                    <div *ngIf="openSpace.laptops != 0; else secondCondition">
+                        <span><strong>{{ openSpace.laptops }}</strong></span>
+                    </div>
+                    <ng-template #secondCondition>
+                      <strong>{{'Pas disponible'}}</strong>
+                    </ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

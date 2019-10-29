@@ -1,0 +1,46 @@
+<div *ngIf="User" class="card-content" >
+    <div class="col s8 teal" style="left: 30px; width: 320px;">
+    <h5 class="header center" style="color: aliceblue" >{{ User.first_name+' '+User.last_name }}</h5>
+    <div class="card horizontal hoverable ">
+      <div class="card-stacked">
+        <div class="card-stacked">
+          <table class="bordered striped">
+            <tbody>
+              <div>
+                <tr>
+                  <td>Age</td>
+                  <td><strong>{{ age }}</strong></td>
+                </tr>
+              </div>
+              <div>
+                <tr>
+                  <td>Email</td>
+                  <td><strong>{{ User.email }}</strong></td>
+                </tr>
+              </div>
+              <div *ngIf="Abonnement.name == 'abonnement simple' || Abonnement.name == 'abonnement résident' ; else secondCondition">
+                <tr>
+                  <td>Abonnement</td>
+                  <td><strong>{{ Abonnement.name.substring(11)}}</strong></td>
+                </tr>
+              </div>
+              <ng-template #secondCondition>
+                <div>
+                  <tr>
+                    <td>Abonnement</td>
+                    <td><strong>{{'aucun'}}</strong></td>
+                  </tr>
+                </div>
+              </ng-template>
+            </tbody>
+          </table>
+          <div class="card-action">
+              <ul>
+                  <li><a href="#"><i class="material-icons icon">edit</i></a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</div>

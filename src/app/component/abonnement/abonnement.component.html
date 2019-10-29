@@ -1,0 +1,159 @@
+<my-nav-bar></my-nav-bar>
+<div *ngIf="abonnement.name == 'abonnement simple'">
+    <div class="container">
+        <div class="card" style="margin-left: auto; margin-right: auto; text-align: center; width: fit-content; height: fit-content;">
+            <span *ngIf="abonnement.commitment">
+                <p>Vous êtes abonnés Simple avec engagement.
+                    <br>Votre abonnement à commencé le {{subscription.subscription_date}} et se termine le {{subscription.subscription_end}}.
+                </p>
+            </span>
+            <span *ngIf="!abonnement.commitment">
+                    <p>Vous êtes abonnés Simple sans engagement.
+                        <br>Votre abonnement à commencé le {{subscription.subscription_date}} et se termine le {{subscription.subscription_end}}.    
+                    </p>
+                </span>
+            <span><p>Payez le temps passé sur place,
+                    les consommations sont
+                    incluses et à volonté !
+                    Accessible sans réservation ou
+                    abonnement.
+                    <br>Tarifs par personne :
+                    <br>Première heure : 4€
+                    <br>½ heure suivante : 2€
+                    <br>Journée (5 heures et plus) : 20€
+                    <br>
+                    <br>Accès open space,
+                        Wifi,
+                        Snacking & boissons à volonté,
+                        Cabines téléphonique,
+                        Accès libre à tous les espaces,
+                        Accès premium au HUB
+            </p></span>
+        </div>
+    </div>
+</div>
+<div *ngIf="abonnement.name == 'abonnement résident'">
+    <div class="container">
+        <div class="card" style="margin-left: auto; margin-right: auto; text-align: center; width: fit-content; height: fit-content;">
+            <span *ngIf="abonnement.commitment">
+                <p>Vous êtes abonnés Résident avec engagement.
+                    <br>Votre abonnement à commencé le {{subscription.subscription_date}} et se termine le {{subscription.subscription_end}}.
+                </p>
+            </span>
+            <span *ngIf="!abonnement.commitment">
+                <p>Vous êtes abonnés résident sans engagement.
+                    <br>Votre abonnement à commencé le {{subscription.subscription_date}} et se termine le {{subscription.subscription_end}}.    
+                </p>
+            </span>
+            <span><p>Bénéficiez d'un accès en
+                    illimité 7/7j.
+                    <br>Accès open space
+                        Wifi
+                        Snacking & boissons à volonté
+                        Cabines téléphonique
+                        Accès libre à tous les espaces
+                        Accès premium au HUB
+                    </p></span>
+                </div>
+            </div>
+</div>
+<div *ngIf="subscription == 'unknown id'">
+    <div class="container">
+        <div class="card" style="margin-left: auto; margin-right: auto; text-align: center; width: fit-content; height: fit-content;">
+            <span><p>Vous n'êtes pas abonnés.
+                    <br>Payez le temps passé sur place,
+                    les consommations sont
+                    incluses et à volonté !
+                    Accessible sans réservation ou
+                    abonnement.
+                    <br>Tarifs par personne :
+                    <br>Première heure : 5€
+                    <br>½ heure suivante : 2,5€
+                    <br>Journée (5 heures et plus) :
+                    24€
+                    <br>Réduction étudiante :
+                    Journée (5 heures et plus) :
+                    20€
+                    <br>
+                    <br>Accès open space (sans
+                    possibilité de changer
+                    d'adresse)
+                    Wifi
+                    Snacking & boissons à volonté
+                    Cabines téléphonique</p></span>
+        </div>
+    </div>
+    <hr>
+    <h2 style="text-align: center;">choisissez un abonnement</h2>
+    <div class="row">
+        <div *ngFor='let abo of abonnements'>
+            <div class="card hoverable" style="margin-left: 90px; margin-right: 90px; text-align: center; width: fit-content; height: fit-content;">
+                <span><p>{{abo.name}}</p>
+                    <p *ngIf='abo.commitment == 1 && abo.name == "abonnement simple"'>Avec engagement de 12 mois 20€ TTC /mois = 240€
+                        <br>Payez le temps passé sur place,
+                        les consommations sont
+                        incluses et à volonté !
+                        Accessible sans réservation ou
+                        abonnement.
+                        <br>Tarifs par personne :
+                        <br>Première heure : 4€
+                        <br>½ heure suivante : 2€
+                        <br>Journée (5 heures et plus) : 20€
+                        <br>
+                        <br>Accès open space,
+                            Wifi,
+                            Snacking & boissons à volonté,
+                            Cabines téléphonique,
+                            Accès libre à tous les espaces,
+                            Accès premium au HUB
+                    </p>
+                    <p *ngIf='abo.commitment == 1 && abo.name == "abonnement résident"'>avec engagement de 8 mois 252€ TTC /mois = 2016€
+                        <br>Bénéficiez d'un accès en
+                        illimité 7/7j.
+                        <br>Accès open space
+                            Wifi
+                            Snacking & boissons à volonté
+                            Cabines téléphonique
+                            Accès libre à tous les espaces
+                            Accès premium au HUB
+                    </p>
+                    <p *ngIf='abo.commitment == 0 && abo.name == "abonnement simple"'>Sans engagement 24€ TTC /mois
+                            <br>Payez le temps passé sur place,
+                            les consommations sont
+                            incluses et à volonté !
+                            Accessible sans réservation ou
+                            abonnement.
+                            <br>Tarifs par personne :
+                            <br>Première heure : 4€
+                            <br>½ heure suivante : 2€
+                            <br>Journée (5 heures et plus) : 20€
+                            <br>
+                            <br>Accès open space,
+                                Wifi,
+                                Snacking & boissons à volonté,
+                                Cabines téléphonique,
+                                Accès libre à tous les espaces,
+                                Accès premium au HUB
+                    </p>
+                    <p *ngIf='abo.commitment == 0 && abo.name == "abonnement résident"'>sans engagement 300€ TTC /mois
+                            <br>Bénéficiez d'un accès en
+                            illimité 7/7j.
+                            <br>Accès open space
+                                Wifi
+                                Snacking & boissons à volonté
+                                Cabines téléphonique
+                                Accès libre à tous les espaces
+                                Accès premium au HUB
+                    </p>
+                </span>
+                <button (click)="pay(abo)">{{abo.price+"€"}}</button>
+            </div>
+        </div>
+        <!--<div class="card hoverable" style="margin-left: auto; margin-right: auto; text-align: center; width: fit-content; height: fit-content;">
+            <span><p>abonnement simple</p></span>
+        </div>
+        <div class="card hoverable" style="margin-left: auto; margin-right: auto; text-align: center; width: fit-content; height: fit-content;">
+            <span><p>abonnement résident</p></span>
+        </div>-->
+    </div>
+</div>

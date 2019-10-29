@@ -1,0 +1,132 @@
+<div class="card horizontal hoverable" style="margin-left: 10px;">
+  <div *ngIf="abonnement.name == 'abonnement simple' || abonnement.name == 'abonnement résident'; else NonAbonnee">
+      <ngb-tabset style="margin-left: 30px;" [activeId]="activeGeneralTab" (tabChange)="activeGeneralTab = $event.nextId">
+          <ngb-tab title="Reservation salle" id="reservation">
+            <ng-template ngbTabContent>
+              <form>
+                <hr>
+                <div class="form-group">
+                  <ngb-tabset [activeId]="activeTab" (tabChange)="activeTab = $event.nextId">
+                    <ngb-tab title="Salle de réunion" id="conf_room">
+                      <ng-template ngbTabContent>
+                        <div class="form-group">
+                          <label for="conf_room">numéro de salle</label>
+                          <div *ngIf='conf_room.length == 0 || conf_room == undefined'>
+                            <span><p>indisponible</p></span>
+                          </div>  
+                          <div *ngIf="conf_room.length > 0">
+                            <select class="form-control" [(ngModel)]="reservation.number" name="reservation.number" required> 
+                              <option *ngFor="let room of conf_room " [ngValue]="room">{{room}}</option>
+                            </select>
+                          </div>     
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="Salle d'appel" id="call_room">
+                      <ng-template ngbTabContent>
+                        <div class="form-group">
+                          <label for="call_room">numéro de salle</label>
+                          <div *ngIf='call_room.length == 0 || call_room == undefined'>
+                            <span><p>indisponible</p></span>
+                          </div>  
+                          <div *ngIf="call_room.length > 0">
+                            <select class="form-control" [(ngModel)]="reservation.number" name="reservation.number" required>
+                              <option *ngFor="let room of call_room " [ngValue]="room">{{room}}</option>
+                            </select>
+                          </div>     
+                        </div>
+                      </ng-template>
+                    </ngb-tab>             
+                  </ngb-tabset>
+                </div>
+                <hr>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" required>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="material-icons icon">calendar_today</i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="debut">Début</label>
+                  <input id="start" name="debut" type="number" class="form-control" [(ngModel)]="reservation.start" required> 
+                </div>
+                <div class="form-group">
+                  <label for="fin">Fin</label>
+                  <input id="end" name="fin" type="number" class="form-control" [(ngModel)]="reservation.end" required> 
+                </div>
+              </form>
+              <div class="d-flex justify-content-center">
+                  <button class="btn btn-outline-success" (click)="createReservation()">Réserver</button>
+              </div>
+              <span><p><em>{{message}}</em></p></span>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab id="borrowing">
+            <ng-template ngbTabTitle>Prêt matériel</ng-template>
+            <ng-template ngbTabContent>
+              <form>
+                <hr>
+                <div class="form-group">
+                  <ngb-tabset [activeId]="activeTab2" (tabChange)="activeTab2 = $event.nextId">
+                    <ngb-tab title="ordinateur" id="laptop">
+                      <ng-template ngbTabContent>
+                        <div class="form-group">
+                          <label for="laptop">numéro du matériel</label>
+                          <div *ngIf='laptops.length == 0 || laptops == undefined'>
+                              <span><p>ordinateur indisponible</p></span>
+                          </div>  
+                          <div *ngIf="laptops.length > 0">
+                            <select class="form-control" [(ngModel)]="reservation.number" name="reservation.number" required> 
+                              <option *ngFor="let laptop of laptops " [ngValue]="laptop">{{laptop}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngb-tab>
+                  </ngb-tabset>
+                </div>
+                <hr>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" required>
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="material-icons icon">calendar_today</i></button>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="debut">Début</label>
+                  <input id="start" name="debut" type="number" class="form-control" [(ngModel)]="reservation.start" required> 
+                </div>
+                <div class="form-group">
+                  <label for="fin">Fin</label>
+                  <input id="end" name="fin" type="number" class="form-control" [(ngModel)]="reservation.end" required> 
+                </div>
+              </form>
+              <div class="d-flex justify-content-center">
+                  <button class="btn btn-outline-success" (click)="createReservation()">Réserver</button>
+              </div>
+              <span><p><em>{{message}}</em></p></span>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Disabled" [disabled]="true">
+            <ng-template ngbTabContent>
+              <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+  </div>
+  <ng-template #NonAbonnee>
+    <span>
+      <p>Vous n'êtes pas abonnés membre. Cliquez sur le lien si vous désirez devenir membre de la communauté CO'WORK</p>
+      <a style="color: teal" (click)="navigateToAbonnement()">Abonnemer vous</a>
+    </span>
+  </ng-template>
+  <!--<div *ngIf="abonnement.name != 'abonnement simple' || abonnement.name != 'abonnement résident'">
+    
+  </div>-->
+</div>
+
+

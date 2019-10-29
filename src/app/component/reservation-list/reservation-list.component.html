@@ -1,0 +1,45 @@
+<my-nav-bar></my-nav-bar>
+<div class='row'>
+  <div class="col s12 m10">
+    <div class="card hoverable">
+      <table cellpadding="1" cellspacing="1" class="table table-hover" id="myTable">
+          <thead>
+            <tr>
+                <th>Site</th>
+                <th>Type</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Date de reservation</th>
+                <th>Numéro salle/matériel</th>
+                <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor='let reservation of reservations | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize '>
+                <td>{{reservation.location}}</td>
+                <ng-container *ngIf='reservation.type == "conf_room"'>
+                    <td>{{'salle de réunion'}}</td>
+                </ng-container>
+                <ng-container *ngIf='reservation.type == "call_room"'>
+                    <td>{{"salle d'appel"}}</td>
+                </ng-container>
+                <ng-container *ngIf='reservation.type == "printers"'>
+                    <td>{{'imprimante'}}</td>
+                </ng-container>
+                <ng-container *ngIf='reservation.type == "laptops"'>
+                    <td>{{'ordinateur portable'}}</td>
+                </ng-container>
+                <td>{{reservation.start}}</td>
+                <td>{{reservation.end}}</td>
+                <td>{{reservation.date_res}}</td>
+                <td>{{reservation.number}}</td>
+                <td><button class="btn btn-outline-primary" (click)="deletReservation(reservation.id)"><i class="material-icons icon">delete</i></button></td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+<div class="col s12 m10 offset-m1 center">
+    <ngb-pagination [collectionSize]="reservations.length" [pageSize]="pageSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+</div>
