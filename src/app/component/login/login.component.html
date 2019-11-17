@@ -22,11 +22,9 @@
             </form>
             <div class="card-action center">
                 <a (click)="login()" class="waves-effect waves-light btn"  >Se connecter</a>
-                <!--<br>
-                <a  href="#" style="margin-left: 22px;">Reset Password</a>-->
             </div>
-            <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample2">Password oublié</button>
-            <div id="collapseExample2" [ngbCollapse]="!isCollapsed">
+            <button type="button" class="btn btn-outline-primary" (click)="panelCollapsed=panelCollapsed == 'login'?null:'login'">Password oublié</button><!-- [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample2"-->
+            <div id="collapseExample" [ngbCollapse]="panelCollapsed != 'login'">
                 <form (ngSubmit)='sendMailResetPassword()' #sendMailForm='ngForm'>
 
                     <div class="form-group">
@@ -45,19 +43,21 @@
             </div>
         </div>
         <div class="card hoverable" style="width: 350px; margin-left: auto; margin-right: auto;">
-                <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">créer un compte</button>
-                <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                <button type="button" class="btn btn-outline-primary" (click)="panelCollapsed=panelCollapsed == 'signup'?null:'signup'" >créer un compte</button><!--[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"-->
+                <div id="collapseExample" [ngbCollapse]="panelCollapsed != 'signup'">
                     <div class="card">
                         <div class="card-body">
                             <form (ngSubmit)='createUser()' #createUserForm='ngForm'>
                                 <div class="form-group">
                                     <label for="fname">Prénom</label>
-                                    <input type="text" class="form-control" required [(ngModel)]="user.first_name" name="fname" id="fname">
+                                    <input type="text" class="form-control" required [(ngModel)]="user.first_name" minlength="5" #first_name="ngModel" name="fname" id="fname">
+                                    <div *ngIf="first_name.errors?.minlength" class="card-panel red accent-1">5 charactères minimum</div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="lname">Nom</label>
-                                    <input type="text" class="form-control" required [(ngModel)]="user.last_name" name="lname" id="lname">
+                                    <input type="text" class="form-control" required [(ngModel)]="user.last_name" minlength="5" #last_name="ngModel" name="lname" id="lname">
+                                    <div *ngIf="last_name.errors?.minlength" class="card-panel red accent-1">5 charactères minimum</div>
                                 </div>
 
                                 <div class="form-group" [class.has-error]="emailReg.invalid && emailReg.touched">
@@ -73,8 +73,9 @@
 
                                 <div class="form-group" [class.has-error]="registrationPassword.touched && registrationPassword.invalid">
                                     <label for="registrationPassword" class="control-label">mot de passe</label>
-                                    <input id="registrationPassword" required type="password" [(ngModel)]="user.password" #registrationPassword="ngModel" name="registrationPassword"   class="form-control">
+                                    <input id="registrationPassword" required type="password" [(ngModel)]="user.password" minlength="5" #registrationPassword="ngModel" name="registrationPassword"   class="form-control">
                                     <div *ngIf="registrationPassword.touched && registrationPassword.errors?.required" class="card-panel red accent-1">mot de passe obligatoire</div>
+                                    <div *ngIf="registrationPassword.errors?.minlength" class="card-panel red accent-1">5 charactères minimum</div>
                                 </div>
 
                                 <div class="form-group" [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
@@ -100,10 +101,6 @@
                                         s'inscrire</button>
                                     </div>
                             </form>
-                        </div>
-                        <pre>{{messageReq}}</pre>
-                        <div class="card-content center">
-                            <span><p><em>{{messageReq}}</em></p></span>
                         </div>
                     </div>
                 </div>

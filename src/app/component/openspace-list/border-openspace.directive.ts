@@ -6,11 +6,13 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class BorderOpenspaceDirective {
 	private initialColor: string = '#f5f5f5';
 	private defaultColor: string = '#009688';
-	private defaultHeight: number = 300;
+	private defaultHeight: number = 270;
+	private defaultWidth: number = 375;
 
 	constructor(private el: ElementRef) {
 		this.setBorder(this.initialColor);
 		this.setHeight(this.defaultHeight);
+		this.setWidth(this.defaultWidth);
     }
 	
 	@Input('openspaceBorderCard') borderColor: string
@@ -30,5 +32,9 @@ export class BorderOpenspaceDirective {
 
 	private setHeight(height: number) {
 		this.el.nativeElement.style.height = height + 'px';
+	}
+
+	private setWidth(width: number) {
+		this.el.nativeElement.style.width = width + 'px';
 	}
 }

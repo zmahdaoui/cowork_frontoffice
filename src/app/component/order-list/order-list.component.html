@@ -1,0 +1,31 @@
+<my-nav-bar></my-nav-bar>
+<div class='row'>
+  <div class="col s12 m10">
+    <div class="card hoverable">
+      <table cellpadding="1" cellspacing="1" class="table table-hover" id="myTable">
+          <thead>
+            <tr>
+                <th>Site</th>
+                <th>Date de commande</th>
+                <th>Heure de commande</th>
+                <th>Quantité</th>
+                <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor='let order of orders | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize '>
+                <td>{{order.location}}</td>
+                <td>{{order.date_order}}</td>
+                <td>{{order.time}}</td>
+                <td>{{order.count}}</td>
+                <td>{{order.time}}</td>
+                <td><button class="btn btn-outline-primary" (click)="deletOrder(order.id)"><i class="material-icons icon">delete</i></button></td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+<div class="col s12 m10 offset-m1 center">
+    <ngb-pagination [collectionSize]="orders.length" [pageSize]="pageSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+</div>

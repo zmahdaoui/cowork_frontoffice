@@ -12,12 +12,13 @@ import { User } from 'src/app/model/user';
 
 export class LoginComponent {
 	message: string = 'Rentrer vos identifiants.';
-	messageReg: string = 'test';
+	messageReg: string = '';
 	private email: string;
 	private email2: string;
 	private password: string;
 	private user: User;
 	model = {year:null, month:null, day:null};
+	panelCollapsed:any='login';
 
 	constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
 
@@ -59,11 +60,6 @@ export class LoginComponent {
 
 
 	createUser(){
-		if(this.model.year == null){
-			this.messageReg = 'saisissez votre date de naissance';
-			return;
-		}
-
 		let year = this.model.year;
 		let month = this.model.month.toString();
 		month = month.length<2? '0'+this.model.month : this.model.month
@@ -74,7 +70,8 @@ export class LoginComponent {
 		this.authService.createUser(this.user)
 			.subscribe(user => {
 				if(user.status == 0){
-					this.messageReg = 'Email déja pris'
+					//this.messageReg =
+					alert('Email déja pris')
 				}
 
 				if (localStorage.getItem('token')!='') {

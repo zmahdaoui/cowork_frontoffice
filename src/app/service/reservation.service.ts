@@ -56,6 +56,7 @@ export class ReservationService {
 		return this.http.post<any>(url, reservation, header)
 			.pipe(
 				map((x: any) => {
+					console.log(x);
 					return x;
 				})
 			);

@@ -10,7 +10,6 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 	templateUrl: './reservation-list.component.html'
 })
 export class ReservationListComponent {
-	title: string;
 	reservations: Reservation[];
 	helper = new JwtHelperService();
     page: number;
@@ -29,8 +28,6 @@ export class ReservationListComponent {
 	}
 
 	private getUserReservations(): void{
-		let id = 12
-
 		const decodedToken = this.helper.decodeToken(localStorage.getItem('token'));
 		this.reservationService.getReservations(decodedToken.logger.id)
 			.subscribe(reservations => {
@@ -43,7 +40,6 @@ export class ReservationListComponent {
 				if(deleted){
 					this.reservations = this.reservations.filter(item => item.id != id)
 				}
-
 			})
 	}
 }

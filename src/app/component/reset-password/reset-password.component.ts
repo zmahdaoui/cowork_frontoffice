@@ -9,11 +9,23 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class ResetPasswordComponent {
     helper = new JwtHelperService();
-    password: string;
-    confirmPassword: string;
+    Password: string;
+    ConfirmPassword: string;
 
 	constructor(private router: Router, private userService: UserService){}
 
 	ngOnInit(){
-    }
+        /*if(this.helper.isTokenExpired(localStorage.getItem('token'))){
+			localStorage.clear();
+			this.router.navigateByUrl('login');
+		}*/
+	}
+	
+	updatePassword(){
+		this.userService.updatePassword(this.Password)
+			.subscribe(result =>{
+				if(result)
+					this.router.navigateByUrl('login');
+			})
+	}
 }

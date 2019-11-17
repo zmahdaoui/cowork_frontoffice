@@ -10,7 +10,8 @@ import { AuthService } from '../../service/auth.service';
                 <div class="nav-wrapper teal">
                 <a href="#" class="brand-logo left" >cowork client</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a (click)="navigateToReservations()">Réservation</a></li>
+                    <li><a (click)="navigateToReservations()">Réservations</a></li>
+                    <li><a (click)="navigateToOrders()">Commandes</a></li>
                     <li><a (click)="navigateToAbonnement()">Abonnement</a></li>
                     <li><a (click)="navigateToLogin()">log out</a></li>
                 </ul>
@@ -27,6 +28,10 @@ export class NavBarComponent {
     
     navigateToReservations(){
         this.router.navigateByUrl('user/reservations');
+    }
+
+    navigateToOrders(){
+        this.router.navigateByUrl('user/orders');
     }
 
     navigateToAbonnement(){

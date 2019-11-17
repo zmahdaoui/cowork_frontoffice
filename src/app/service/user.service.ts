@@ -70,7 +70,7 @@ export class UserService {
 			}))
 	}
 
-	getUserSubscription():Observable<Subscription>{
+	getUserSubscription():Observable<any>{
 		let token = localStorage.getItem('token');
 		let decodedToken = this.helper.decodeToken(token);
 		const url = `${this.basesUrl}user/subscriptions/${decodedToken.logger.id}`;
@@ -78,9 +78,9 @@ export class UserService {
 			headers: new HttpHeaders()
 							.set('Authorization', 'Bearer '+localStorage.getItem('token'))
 		}
-		return this.http.get<Subscription>(url, header)
+		return this.http.get<any>(url, header)
 			.pipe(map((x: any) => {
-				let response: Subscription;
+				let response: any;
 				if(x.status == 1){
 					response = x.result;
 				}else{
@@ -140,6 +140,24 @@ export class UserService {
 			message: message
 		}
 		return this.http.post<any>(url, request, header)
+			.pipe(map((x: any)=> {
+				console.log(x)
+				if(x.status == 1)
+					return true
+				else
+					return false
+			}))
+	}
+
+	updatePassword(password: string):Observable<boolean>{
+		let token = localStorage.getItem('token');
+		let decodedToken = this.helper.decodeToken(token);
+		const url = `${this.basesUrl}/users/password/${decodedToken.logger.id}`;
+		var header = {
+			headers: new HttpHeaders()
+							.set('Authorization', 'Bearer '+localStorage.getItem('token'))
+		}
+		return this.http.put<any>(url,{password:password}, header)
 			.pipe(map((x: any)=> {
 				console.log(x)
 				if(x.status == 1)

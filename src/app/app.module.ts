@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { ReservationListComponent } from './component/reservation-list/reservation-list.component';
+import { OrderListComponent } from './component/order-list/order-list.component';
 import { OpenspaceListComponent } from './component/openspace-list/openspace-list.component';
 import { OpenspaceDetailComponent } from './component/openspace-detail/openspace-detail.component'
 import { ReservationComponent } from './component/reservation/reservation.component'
@@ -24,6 +25,7 @@ import { OpenspaceService } from './service/openspace.service';
 import { ReservationService } from './service/reservation.service';
 import { UserService } from './service/user.service';
 import { AbonnementService } from './service/abonnement.service';
+import { OrderService } from './service/order.service';
 
 import { BorderOpenspaceDirective } from './component/openspace-list/border-openspace.directive';
 import { ConfirmEqualValidatorDirective } from './component/login/confirm-equal-validator.directive';
@@ -48,6 +50,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       ReservationComponent,
       AbonnementComponent,
       ReservationListComponent,
+      OrderListComponent,
       ResetPasswordComponent,
       BorderOpenspaceDirective,
       ConfirmEqualValidatorDirective,
@@ -59,7 +62,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       OpenspaceService,
       ReservationService,
       UserService,
-      AbonnementService
+      AbonnementService,
+      OrderService
     ]
 })  
 export class AppModule { }
