@@ -1,0 +1,42 @@
+<my-nav-bar></my-nav-bar>
+<div class='row'>
+  <div class="col s12 m10">
+    <div class="card hoverable">
+      <table cellpadding="1" cellspacing="1" class="table table-hover" id="myTable">
+          <thead>
+            <tr>
+                <th>Site</th>
+                <th>Type</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Date de d'emprunt</th>
+                <th>Matériel</th>
+                <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor='let borrowing of borrowings | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize '>
+                <td>{{borrowing.location}}</td>
+                <ng-container *ngIf='borrowing.type == "conf_room"'>
+                    <td>{{'salle de réunion'}}</td>
+                </ng-container>
+                <ng-container *ngIf='borrowing.type == "call_room"'>
+                    <td>{{"salle d'appel"}}</td>
+                </ng-container>
+                <ng-container *ngIf='borrowing.type == "laptop"'>
+                    <td>{{'ordinateur portable'}}</td>
+                </ng-container>
+                <td>{{borrowing.start}}</td>
+                <td>{{borrowing.end}}</td>
+                <td>{{borrowing.date_res}}</td>
+                <td>{{borrowing.number}}</td>
+                <td><button class="btn btn-outline-primary" (click)="deletBorrowing(borrowing.id)"><i class="material-icons icon">delete</i></button></td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+<div class="col s12 m10 offset-m1 center">
+    <ngb-pagination [collectionSize]="borrowings.length" [pageSize]="pageSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+</div>

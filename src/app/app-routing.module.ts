@@ -3,6 +3,7 @@ import { RouterModule, Routes }  from '@angular/router';
 import { PageNotFoundComponent} from './page-not-found.component';
 import { OpenspaceListComponent } from './component/openspace-list/openspace-list.component';
 import { ReservationListComponent } from './component/reservation-list/reservation-list.component';
+import { BorrowingListComponent } from './component/borrowing-list/borrowing-list.component';
 import { OrderListComponent } from './component/order-list/order-list.component';
 import { LoginComponent } from './component/login/login.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
 	{ path: 'openspace/list', component: OpenspaceListComponent, canActivate:[AuthGuard]},
 	{ path: 'openspace/:id', component: OpenspaceDetailComponent, canActivate:[AuthGuard]},
 	{ path: 'user/reservations', component: ReservationListComponent, canActivate:[AuthGuard]},
+	{ path: 'user/borrowings', component: BorrowingListComponent, canActivate:[AuthGuard]},
 	{ path: 'user/orders', component: OrderListComponent, canActivate:[AuthGuard]},
 	{ path: 'abonnement', component: AbonnementComponent, canActivate:[AuthGuard]},
 	{ path: 'reset/password', component: ResetPasswordComponent},

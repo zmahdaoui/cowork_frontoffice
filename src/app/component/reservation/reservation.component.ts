@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Reservation } from '../../model/reservation';
+import { Borrowing } from '../../model/borrowing';
 import { OpenSpace } from '../../model/open-space';
 import { Order } from '../../model/order';
 import { ReservationService } from '../../service/reservation.service';
+import { BorrowingService } from '../../service/borrowing.service';
 import { OrderService } from '../../service/order.service';
 import { OpenspaceService } from '../../service/openspace.service';
 import { UserService } from '../../service/user.service';
@@ -17,6 +19,7 @@ import { Abonnement } from 'src/app/model/abonnement';
 })
 export class ReservationComponent {
 	private reservation: Reservation;
+	private borrowing: Borrowing;
 	private order: Order;
 	private abonnement: Abonnement;
 	@Input() private openSpace: OpenSpace;
@@ -31,7 +34,7 @@ export class ReservationComponent {
 	time = {hour: null, minute: null};
 	message = '';
 
-	constructor(private route: ActivatedRoute, private router: Router, private reservationService: ReservationService,  private orderService: OrderService, private openspaceService: OpenspaceService, private userService: UserService){}
+	constructor(private route: ActivatedRoute, private router: Router, private reservationService: ReservationService,  private orderService: OrderService, private openspaceService: OpenspaceService, private userService: UserService, private borrowingService: BorrowingService){}
 
 	ngOnInit(){
 		if(this.helper.isTokenExpired(localStorage.getItem('token'))){
@@ -46,6 +49,7 @@ export class ReservationComponent {
         let token = localStorage.getItem('token');
 		let decodedToken = this.helper.decodeToken(token);
 		this.reservation = new Reservation(null,'',this.activeTab,0,0,'',null,decodedToken.logger.id);
+		this.borrowing = new Borrowing(null,'',this.activeTab2,0,0,'',null,decodedToken.logger.id);
 		this.order = new Order(null,'','',decodedToken.logger.id,0,'');
 		this.getOpenspace();
 		this.getUserAbonnement();	
@@ -74,10 +78,8 @@ export class ReservationComponent {
 	}
 
 	createReservation(){
-		if(this.activeGeneralTab=="reservation")
+		if(this.activeGeneralTab == "reservation")
 			this.reservation.type = this.activeTab;
-		else
-			this.reservation.type = this.activeTab2;
 		
 		if(this.model.year == null)
 			return;
@@ -94,6 +96,30 @@ export class ReservationComponent {
 			.subscribe(response => {
 				if(response.status == 1)
 					this.router.navigateByUrl("user/reservations");
+				else
+					this.message = response.message;
+			});
+	}
+
+	createBorrowing(){
+		if(this.activeGeneralTab != "reservation")
+			this.borrowing.type = this.activeTab2;
+		
+		if(this.model.year == null)
+			return;
+		else if (this.borrowing.number == null)
+			return;
+		
+		let year = this.model.year;
+		let month = this.model.month.toString();
+		month = month.length<2? '0'+this.model.month : this.model.month
+		let day = this.model.day.toString();
+		day = day.length<2? '0'+this.model.day : this.model.day 
+		this.borrowing.date_res = year+'/'+month+'/'+day+' 00:00:00';
+		this.borrowingService.createBorrowing(this.borrowing)
+			.subscribe(response => {
+				if(response.status == 1)
+					this.router.navigateByUrl("user/borrowings");
 				else
 					this.message = response.message;
 			});

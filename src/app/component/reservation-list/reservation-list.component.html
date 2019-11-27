@@ -2,6 +2,11 @@
 <div class='row'>
   <div class="col s12 m10">
     <div class="card hoverable">
+      <form>
+        <div class="form-group form-inline">
+            Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+        </div>
+      </form>
       <table cellpadding="1" cellspacing="1" class="table table-hover" id="myTable">
           <thead>
             <tr>
@@ -10,18 +15,25 @@
                 <th>Début</th>
                 <th>Fin</th>
                 <th>Date de reservation</th>
-                <th>Numéro salle/matériel</th>
+                <th>Numéro salle</th>
                 <th>Action</th>
             </tr>
           </thead>
           <tbody>
-              <tr *ngFor='let reservation of reservations | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize '>
-                <td>{{reservation.location}}</td>
+              <tr *ngFor="let reservation of reservations$ | async | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                <td>
+                  <ngb-highlight [result]="reservation.location" [term]="filter.value"></ngb-highlight>
+                  <!--{{  }}-->
+                </td>
                 <ng-container *ngIf='reservation.type == "conf_room"'>
-                    <td>{{'salle de réunion'}}</td>
+                <td><!--{{'salle de réunion'}}-->
+                  <ngb-highlight [result]="salleDeRunion" [term]="filter.value"></ngb-highlight>
+                </td>
                 </ng-container>
                 <ng-container *ngIf='reservation.type == "call_room"'>
-                    <td>{{"salle d'appel"}}</td>
+                <td><!--{{"salle d'appel"}}-->
+                  <ngb-highlight [result]="salleDAppel" [term]="filter.value"></ngb-highlight>
+                </td>
                 </ng-container>
                 <ng-container *ngIf='reservation.type == "laptop"'>
                     <td>{{'ordinateur portable'}}</td>
@@ -38,5 +50,5 @@
   </div>
 </div>
 <div class="col s12 m10 offset-m1 center">
-    <ngb-pagination [collectionSize]="reservations.length" [pageSize]="pageSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+    <ngb-pagination [collectionSize]="reservations$.length" [pageSize]="pageSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
 </div>

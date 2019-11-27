@@ -72,7 +72,7 @@
           <ngb-tab id="borrowing">
             <ng-template ngbTabTitle>Prêt matériel</ng-template>
             <ng-template ngbTabContent>
-              <form (ngSubmit)='createReservation()' #borrowing='ngForm'>
+              <form (ngSubmit)='createBorrowing()' #borrowing='ngForm'>
                 <hr>
                 <div class="form-group">
                   <ngb-tabset [activeId]="activeTab2" (tabChange)="activeTab2 = $event.nextId">
@@ -84,7 +84,7 @@
                               <span><p>ordinateur indisponible</p></span>
                           </div>  
                           <div *ngIf="laptops.length > 0">
-                            <select class="form-control" [(ngModel)]="reservation.number" name="reservation.number" required> 
+                            <select class="form-control" [(ngModel)]="borrowing.number" name="borrowing.number" required> 
                               <option *ngFor="let laptop of laptops " [ngValue]="laptop">{{laptop}}</option>
                             </select>
                           </div>
@@ -105,11 +105,11 @@
                 </div>
                 <div class="form-group">
                   <label for="debut">Début</label>
-                  <input id="debut" name="debut" type="number" class="form-control" [(ngModel)]="reservation.start" required> 
+                  <input id="debut" name="debut" type="number" class="form-control" [(ngModel)]="borrowing.start" required> 
                 </div>
                 <div class="form-group">
                   <label for="fin">Fin</label>
-                  <input id="fin" name="fin" type="number" class="form-control" [(ngModel)]="reservation.end" required> 
+                  <input id="fin" name="fin" type="number" class="form-control" [(ngModel)]="borrowing.end" required> 
                 </div>
                 <div class="divider"></div>
                 <div class="section center">
@@ -138,7 +138,7 @@
                 </div>
                 <div class="form-group">
                   <label for="count">Quantité</label>
-                  <input id="count" name="count" type="number" class="form-control" [(ngModel)]="reservation.start" required> 
+                  <input id="count" name="count" type="number" class="form-control" [(ngModel)]="order.count" pattern="[^0]" required> 
                 </div>
                 
                 <label for="time">Heure de la commande</label>
