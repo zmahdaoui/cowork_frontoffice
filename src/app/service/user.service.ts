@@ -94,6 +94,7 @@ export class UserService {
 		let token = localStorage.getItem('token');
 		let decodedToken = this.helper.decodeToken(token);
 		const url = `${this.basesUrl}subscriptions/create`;
+		console.log("TOKENAUTHORIZATION",localStorage.getItem('token'))
 		var header = {
 			headers: new HttpHeaders()
 							.set('Authorization', 'Bearer '+localStorage.getItem('token'))

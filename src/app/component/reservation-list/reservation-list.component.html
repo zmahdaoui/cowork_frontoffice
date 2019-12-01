@@ -26,13 +26,15 @@
                   <!--{{  }}-->
                 </td>
                 <ng-container *ngIf='reservation.type == "conf_room"'>
-                <td><!--{{'salle de réunion'}}-->
-                  <ngb-highlight [result]="salleDeRunion" [term]="filter.value"></ngb-highlight>
+                <td>
+                  {{'salle de réunion'}}
+                  <!--<ngb-highlight [result]="salleDeRunion" [term]="filter.value"></ngb-highlight>-->
                 </td>
                 </ng-container>
                 <ng-container *ngIf='reservation.type == "call_room"'>
-                <td><!--{{"salle d'appel"}}-->
-                  <ngb-highlight [result]="salleDAppel" [term]="filter.value"></ngb-highlight>
+                <td>
+                  {{"salle d'appel"}}
+                  <!--<ngb-highlight [result]="salleDAppel" [term]="filter.value"></ngb-highlight>-->
                 </td>
                 </ng-container>
                 <ng-container *ngIf='reservation.type == "laptop"'>

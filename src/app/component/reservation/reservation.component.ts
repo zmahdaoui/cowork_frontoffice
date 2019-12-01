@@ -22,6 +22,7 @@ export class ReservationComponent {
 	private borrowing: Borrowing;
 	private order: Order;
 	private abonnement: Abonnement;
+	private number: number;
 	@Input() private openSpace: OpenSpace;
 	private conf_room: number[];
 	private call_room: number[];
@@ -31,8 +32,10 @@ export class ReservationComponent {
 	activeTab2 = "laptop"
 	activeGeneralTab = "reservation";
 	model = {year:null, month:null, day:null};
+	model2 = {year:null, month:null, day:null};
 	time = {hour: null, minute: null};
 	message = '';
+
 
 	constructor(private route: ActivatedRoute, private router: Router, private reservationService: ReservationService,  private orderService: OrderService, private openspaceService: OpenspaceService, private userService: UserService, private borrowingService: BorrowingService){}
 
@@ -61,6 +64,7 @@ export class ReservationComponent {
 			.subscribe(openSpace => {
 				this.openSpace = openSpace;
 				this.reservation.location = this.openSpace.location;
+				this.borrowing.location = this.openSpace.location;
 				this.order.location = this.openSpace.location;
 				let i = 1;
 				for(i;i<=this.openSpace.conf_room;i++){
@@ -104,18 +108,21 @@ export class ReservationComponent {
 	createBorrowing(){
 		if(this.activeGeneralTab != "reservation")
 			this.borrowing.type = this.activeTab2;
-		
-		if(this.model.year == null)
+			
+		console.log("HNA A la numéro "+this.number)
+		if(this.model2.year == null)
 			return;
-		else if (this.borrowing.number == null)
+		else if (this.number == null){
+			console.log(this.number);
 			return;
-		
-		let year = this.model.year;
-		let month = this.model.month.toString();
-		month = month.length<2? '0'+this.model.month : this.model.month
-		let day = this.model.day.toString();
-		day = day.length<2? '0'+this.model.day : this.model.day 
+		}
+		let year = this.model2.year;
+		let month = this.model2.month.toString();
+		month = month.length<2? '0'+this.model2.month : this.model2.month
+		let day = this.model2.day.toString();
+		day = day.length<2? '0'+this.model2.day : this.model2.day 
 		this.borrowing.date_res = year+'/'+month+'/'+day+' 00:00:00';
+		this.borrowing.number = this.number;
 		this.borrowingService.createBorrowing(this.borrowing)
 			.subscribe(response => {
 				if(response.status == 1)
