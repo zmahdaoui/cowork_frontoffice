@@ -65,12 +65,20 @@ export class ProfileInformationComponent {
 									window.location.reload();
 							})
 					}
-					console.log(sub);
-					if(sub == 15 || sub == 10 || sub == 5){
+					console.log(sub)
+					if(sub <= 15 && this.Subscription.email_sent != "sent" ){
 						this.sendEmailSubscriptionRenewal();
+						this.updateSubscription(this.Subscription.id);
 					}
 				}
 			});
+	}
+
+	private updateSubscription(id: number){
+		this.userService.updateSubscription(id)
+			.subscribe(Subscription => {
+
+			})
 	}
 
 	private sendEmailSubscriptionRenewal(): void{

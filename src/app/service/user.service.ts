@@ -168,4 +168,21 @@ export class UserService {
 			}))
 	}
 
+	updateSubscription(id: number):Observable<boolean>{
+		let token = localStorage.getItem('token');
+		let decodedToken = this.helper.decodeToken(token);
+		const url = `${this.basesUrl}/subscriptions/${id}`;
+		var header = {
+			headers: new HttpHeaders()
+							.set('Authorization', 'Bearer '+localStorage.getItem('token'))
+		}
+		return this.http.put<any>(url,{}, header)
+			.pipe(map((x: any)=> {
+				console.log(x)
+				if(x.status == 1)
+					return true
+				else
+					return false
+			}))
+	}
 }
