@@ -1,34 +1,21 @@
-import { Component, PipeTransform } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservationService} from '../../service/reservation.service';
 import { Reservation } from '../../model/reservation';
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { DecimalPipe } from '@angular/common';
-import { FormControl/*, ReactiveFormsModule*/ } from '@angular/forms';
-import { startWith, map } from 'rxjs/operators';
-import { Observable , of, Subject } from 'rxjs';
 
  
 @Component({
 	selector: 'reservation-list',
-	templateUrl: './reservation-list.component.html',
-	providers: [DecimalPipe]
+	templateUrl: './reservation-list.component.html'
 })
 export class ReservationListComponent {
 	reservations: Reservation[];
-	//reservations: Subject<Reservation[]>;
-	reservations$: Observable<Reservation[]>;
 	helper = new JwtHelperService();
     page: number;
     pageSize: number;
-	filter = new FormControl('');
 
-	constructor(private router: Router, private reservationService: ReservationService, pipe: DecimalPipe){
-		this.reservations$ = this.filter.valueChanges.pipe(
-			startWith(''),
-			map(text => this.search(text, pipe))
-		)
-	}
+	constructor(private router: Router, private reservationService: ReservationService){}
 
 	ngOnInit(){
 		if(this.helper.isTokenExpired(localStorage.getItem('token'))){
@@ -45,7 +32,6 @@ export class ReservationListComponent {
 		this.reservationService.getReservations(decodedToken.logger.id)
 			.subscribe(reservations => {
 				this.reservations = reservations;
-				this.reservations$ = of(reservations);
 			});
 	}
 
@@ -54,16 +40,7 @@ export class ReservationListComponent {
 			.subscribe(deleted => {
 				if(deleted){
 					this.reservations = this.reservations.filter(item => item.id != id);
-					this.reservations$ = of(this.reservations);
 				}
 			});
 	}
-
-	private search(text: string, pipe: PipeTransform): Reservation[] {
-		return this.reservations.filter(reservation => {
-		  const term = text.toLowerCase();
-		  return reservation.location.toLowerCase().includes(term)
-			  || pipe.transform(reservation.type).includes(term);
-		});
-	  }
 }
