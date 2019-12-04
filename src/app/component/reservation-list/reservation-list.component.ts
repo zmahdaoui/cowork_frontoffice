@@ -32,6 +32,7 @@ export class ReservationListComponent {
 		this.reservationService.getReservations(decodedToken.logger.id)
 			.subscribe(reservations => {
 				this.reservations = reservations;
+				console.log(reservations)
 			});
 	}
 

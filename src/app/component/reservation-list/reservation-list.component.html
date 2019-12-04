@@ -15,9 +15,9 @@
             </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let reservation of reservations$ | async | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              <tr *ngFor="let reservation of reservations | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                 <td>
-                  <ngb-highlight [result]="reservation.location" [term]="filter.value"></ngb-highlight>
+                  {{reservation.location}}
                 </td>
                 <ng-container *ngIf='reservation.type == "conf_room"'>
                 <td>
