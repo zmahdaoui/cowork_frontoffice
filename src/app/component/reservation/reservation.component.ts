@@ -27,6 +27,8 @@ export class ReservationComponent {
 	private conf_room: number[];
 	private call_room: number[];
 	private	laptops: number[];
+	start : number;
+	end : number;
 	helper = new JwtHelperService();
 	activeTab = "conf_room";
 	activeTab2 = "laptop"
@@ -113,7 +115,6 @@ export class ReservationComponent {
 		if(this.model2.year == null)
 			return;
 		else if (this.number == null){
-			console.log(this.number);
 			return;
 		}
 		let year = this.model2.year;
@@ -123,6 +124,9 @@ export class ReservationComponent {
 		day = day.length<2? '0'+this.model2.day : this.model2.day 
 		this.borrowing.date_res = year+'/'+month+'/'+day+' 00:00:00';
 		this.borrowing.number = this.number;
+		this.borrowing.start = this.start;
+		this.borrowing.end = this.end;
+		console.log(this.borrowing);
 		this.borrowingService.createBorrowing(this.borrowing)
 			.subscribe(response => {
 				if(response.status == 1)
