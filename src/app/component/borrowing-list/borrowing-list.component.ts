@@ -6,7 +6,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 
  
 @Component({
-	selector: 'home',
+	selector: 'borrowing-list',
 	templateUrl: './borrowing-list.component.html'
 })
 export class BorrowingListComponent {

@@ -8,7 +8,7 @@ import { LoginResponse, User } from '../model/user';
 
 @Injectable()
 export class AuthService {
-	private basesUrl = 'http://localhost:3030/api-sg/v1/';
+	private basesUrl = 'http://165.22.76.158/api-sg/v1/';
 	isLoggedIn: boolean = false; // L'utilisateur est-il connecté ?
 	constructor(private http: HttpClient){}
 	

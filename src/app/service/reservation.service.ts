@@ -7,7 +7,7 @@ import { Reservation } from '../model/reservation';
 
 @Injectable()
 export class ReservationService {
-    private basesUrl = 'http://localhost:3030/api-sg/v1/';
+    private basesUrl = 'http://165.22.76.158/api-sg/v1/';
 
     constructor(private http: HttpClient){}
 
@@ -39,7 +39,7 @@ export class ReservationService {
 					}else{
 						response = [];
 					}
-					return response;//new LoginResponse(x.status, new User(x.result.id,x.result.first_name, x.result.last_name, x.result.email, x.result.age, x.result.date_inscription, x.result.client), x.message);
+					return response;
 				}),
         		catchError(this.handleError<any>(`Reservations`, [])) );
 			

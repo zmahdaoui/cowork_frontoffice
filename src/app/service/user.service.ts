@@ -10,7 +10,7 @@ import { Subscription } from '../model/subscription';
 
 @Injectable()
 export class UserService {
-    private basesUrl = 'http://localhost:3030/api-sg/v1/';
+    private basesUrl = 'http://165.22.76.158/api-sg/v1/';
 	helper = new JwtHelperService();
 
     constructor(private http: HttpClient){}
@@ -185,4 +185,5 @@ export class UserService {
 					return false
 			}))
 	}
+
 }

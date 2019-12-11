@@ -7,7 +7,7 @@ import { Order } from '../model/order';
 
 @Injectable()
 export class OrderService {
-    private basesUrl = 'http://localhost:3030/api-sg/v1/';
+    private basesUrl = 'http://165.22.76.158/api-sg/v1/';
 
     constructor(private http: HttpClient){}
 
